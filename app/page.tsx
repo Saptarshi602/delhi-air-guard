@@ -1,16 +1,9 @@
-import StateSelector from "./components/StateSelector";
-import SaveButton from "./components/SaveButton";
-import AQIMeter from "./components/AQIMeter";
+import ClientHome from './components/ClientHome';
 
-export default function Home() {
+export default function Page() {
   return (
-    <main>
-      <h1>Delhi Air Guard</h1>
-
-      <StateSelector onSelect={(state) => console.log(state)} />
-      <AQIMeter aqi={180} />
-
-      <SaveButton />
-    </main>
+    <>
+      <ClientHome />
+    </>
   );
 }

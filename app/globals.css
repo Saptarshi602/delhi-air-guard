@@ -1,28 +1,39 @@
+/* app/globals.css */
+
+/* 1️⃣ Tailwind base, components, utilities MUST be at the top */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ---------- Global Reset ---------- */
-html, body {
-  padding: 0;
+/* 2️⃣ Global styles for your app */
+body {
+  @apply bg-white text-gray-800 font-sans; /* white background, default text color, and font */
   margin: 0;
-  background-color: #f1f5f9;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+  padding: 0;
 }
 
-/* ---------- Reusable UI ---------- */
-.card {
-  @apply bg-white rounded-xl shadow-md p-6;
+/* 3️⃣ Custom reusable component classes */
+@layer components {
+  /* Example: container for main content */
+  .main-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Example: card component */
+  .card {
+    @apply bg-white shadow-md rounded-lg p-6;
+  }
+
+  /* Example: button styles */
+  .btn-primary {
+    @apply bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 transition;
+  }
 }
 
-.btn-primary {
-  @apply bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition;
-}
-
-.btn-outline {
-  @apply border border-gray-300 px-4 py-2 rounded-md hover:bg-gray-100 transition;
-}
-
-.input {
-  @apply w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500;
+/* 4️⃣ Optional: global utilities */
+@layer utilities {
+  /* Custom utility if needed */
+  .text-shadow {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  }
 }

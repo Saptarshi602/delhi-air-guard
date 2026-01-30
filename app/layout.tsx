@@ -41,7 +41,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             color: '#64748b',
           }}
         >
-          &copy; 2026 Delhi AI Team
+          &copy; Made with ❤️ by Saptarshi Goswami and Sakshi Tiwari
         </footer>
       </body>
     </html>

@@ -1,17 +1,16 @@
-import Link from "next/link";
+import StateSelector from "./components/StateSelector";
+import SaveButton from "./components/SaveButton";
+import AQIMeter from "./components/AQIMeter";
 
 export default function Home() {
   return (
-    <div className="card">
-      <h1>🌫️ Delhi AIR Guard</h1>
-      <p>
-        Smart AI-powered air quality, health & travel advisory system.
-        Designed to protect families from air pollution risks.
-      </p>
+    <main>
+      <h1>Delhi Air Guard</h1>
 
-      <Link href="/login">
-        <button>Login with Google →</button>
-      </Link>
-    </div>
+      <StateSelector onSelect={(state) => console.log(state)} />
+      <AQIMeter aqi={180} />
+
+      <SaveButton />
+    </main>
   );
 }

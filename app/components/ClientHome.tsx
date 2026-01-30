@@ -11,14 +11,18 @@ export default function ClientHome() {
 
   function handleSelect(selectedState: string) {
     setState(selectedState);
-    // later: fetch AQI here
-    setAqi(120);
+    // temporary AQI (later replace with real API)
+    setAqi(135);
   }
 
   return (
-    <main className="p-6">
+    <main className="p-6 space-y-4">
+      <h1 className="text-2xl font-bold">Delhi Air Guard</h1>
+
       <StateSelector onSelect={handleSelect} />
+
       {aqi && <AQIMeter aqi={aqi} />}
+
       <SaveButton />
     </main>
   );

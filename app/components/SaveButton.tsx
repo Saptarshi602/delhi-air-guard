@@ -7,11 +7,18 @@ export default function SaveButton() {
 
   if (!session) {
     return (
-      <button onClick={() => signIn('google')}>
+      <button
+        onClick={() => signIn('google')}
+        className="px-4 py-2 rounded bg-blue-600 text-white"
+      >
         Login to save report
       </button>
     );
   }
 
-  return <button>Save Health Report</button>;
+  return (
+    <button className="px-4 py-2 rounded bg-green-600 text-white">
+      Save Health Report
+    </button>
+  );
 }

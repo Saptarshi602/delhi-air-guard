@@ -1,83 +1,49 @@
 'use client'
 
-import {
-  MapPin,
-  Search,
-  Bell,
-  MessageCircle,
-  FileText,
-  User
-} from 'lucide-react'
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { signIn, signOut, useSession } from "next-auth/react"
 
 export default function TopNavbar() {
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
 
   return (
-    <header className="sticky top-0 z-50 bg-[#0f172a] text-white shadow-md">
-      <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3">
+    <header className="bg-slate-900 text-white px-6 py-3 flex items-center justify-between">
+      
+      {/* Left */}
+      <div className="flex items-center gap-6">
+        <h1 className="text-xl font-bold">Delhi Air Guard</h1>
 
-        {/* LOGO */}
-        <div className="text-2xl font-bold tracking-wide cursor-pointer">
-          Delhi<span className="text-emerald-400">Air</span>Guard
-        </div>
-
-        {/* LOCATION */}
-        <div className="hidden md:flex items-center gap-2 rounded-md px-3 py-2 hover:bg-white/10 cursor-pointer">
-          <MapPin size={18} />
-          <div className="leading-tight">
-            <p className="text-xs text-gray-300">Location</p>
-            <p className="font-semibold">New Delhi</p>
-          </div>
-        </div>
-
-        {/* SEARCH */}
-        <div className="flex flex-1 items-center">
-          <input
-            className="w-full rounded-l-md px-4 py-2 text-black outline-none"
-            placeholder="Search AQI, area, health tips..."
-          />
-          <button className="rounded-r-md bg-emerald-400 px-4 py-2 hover:bg-emerald-500">
-            <Search className="text-black" />
-          </button>
-        </div>
-
-        {/* RIGHT MENU */}
-        <div className="hidden lg:flex items-center gap-5 text-sm">
-
-          <Nav icon={<FileText size={18} />} label="Health Records" />
-          <Nav icon={<MessageCircle size={18} />} label="AI Chat" />
-          <Nav icon={<Bell size={18} />} label="Alerts" />
-
-          {status === 'authenticated' ? (
-            <div
-              onClick={() => signOut()}
-              className="flex items-center gap-2 rounded-md px-3 py-2 hover:bg-white/10 cursor-pointer"
-            >
-              <User size={18} />
-              <span className="font-medium">
-                {session.user?.name}
-              </span>
-            </div>
-          ) : (
-            <button
-              onClick={() => signIn('google')}
-              className="rounded-md border border-white px-4 py-2 hover:bg-white hover:text-black transition"
-            >
-              Login
-            </button>
-          )}
+        <div className="hidden md:flex items-center gap-2 text-sm text-gray-300">
+          📍 New Delhi
         </div>
       </div>
-    </header>
-  )
-}
 
-function Nav({ icon, label }: { icon: React.ReactNode; label: string }) {
-  return (
-    <div className="flex items-center gap-2 rounded-md px-3 py-2 hover:bg-white/10 cursor-pointer">
-      {icon}
-      <span>{label}</span>
-    </div>
+      {/* Center */}
+      <div className="flex-1 max-w-xl mx-6 hidden md:flex">
+        <input
+          className="w-full rounded-l-md px-4 py-2 text-black"
+          placeholder="Search AQI, area, health tips..."
+        />
+        <button className="bg-yellow-400 text-black px-4 rounded-r-md font-semibold">
+          Search
+        </button>
+      </div>
+
+      {/* Right */}
+      <div className="flex items-center gap-4 text-sm">
+        <button className="hover:underline">Health Records</button>
+        <button className="hover:underline">AI Chat</button>
+        <button className="hover:underline">Alerts</button>
+
+        {session ? (
+          <button onClick={() => signOut()} className="btn-outline">
+            Logout
+          </button>
+        ) : (
+          <button onClick={() => signIn("google")} className="btn-primary">
+            Login
+          </button>
+        )}
+      </div>
+    </header>
   )
 }

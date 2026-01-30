@@ -1,77 +1,76 @@
-'use client';
+'use client'
 
-import { signIn, signOut, useSession } from 'next-auth/react';
-import { MapPin, MessageCircle, FileText, Bell } from 'lucide-react';
+import { MapPin, Search, Bell, MessageCircle, FileText, User } from 'lucide-react'
+import { signIn, signOut, useSession } from 'next-auth/react'
 
 export default function TopNavbar() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession()
 
   return (
     <header className="w-full bg-[#131921] text-white">
-      {/* TOP BAR */}
-      <div className="flex items-center justify-between px-6 py-3">
-        
-        {/* LEFT */}
-        <div className="flex items-center gap-6">
-          <h1 className="text-xl font-bold text-green-400">
-            Delhi Air Guard
-          </h1>
+      <div className="flex items-center gap-4 px-4 py-2">
 
-          <div className="flex items-center text-sm text-gray-300">
-            <MapPin size={16} className="mr-1" />
-            <span>New Delhi</span>
+        {/* Logo */}
+        <div className="text-xl font-bold whitespace-nowrap cursor-pointer">
+          Delhi<span className="text-orange-400">Air</span>Guard
+        </div>
+
+        {/* Location */}
+        <div className="hidden md:flex items-center gap-1 text-sm cursor-pointer hover:outline hover:outline-1 hover:outline-white px-2 py-1 rounded">
+          <MapPin size={16} />
+          <div>
+            <p className="text-xs text-gray-300">Location</p>
+            <p className="font-semibold">New Delhi</p>
           </div>
         </div>
 
-        {/* CENTER */}
-        <div className="hidden md:flex w-[40%]">
+        {/* Search */}
+        <div className="flex flex-1 items-center">
           <input
+            type="text"
             placeholder="Search AQI, area, health tips..."
-            className="w-full px-4 py-2 rounded-l-md text-black"
+            className="w-full px-4 py-2 text-black rounded-l-md outline-none"
           />
-          <button className="bg-yellow-400 px-4 rounded-r-md text-black font-semibold">
-            Search
+          <button className="bg-orange-400 px-4 py-2 rounded-r-md hover:bg-orange-500">
+            <Search size={18} className="text-black" />
           </button>
         </div>
 
-        {/* RIGHT */}
-        <div className="flex items-center gap-6 text-sm">
-          {!session ? (
+        {/* Right Section */}
+        <nav className="hidden lg:flex items-center gap-6 text-sm">
+
+          <NavItem icon={<FileText size={18} />} label="Health Records" />
+          <NavItem icon={<MessageCircle size={18} />} label="AI Health Chat" />
+          <NavItem icon={<Bell size={18} />} label="Alerts" />
+
+          {/* Auth */}
+          {status === 'authenticated' ? (
+            <div
+              onClick={() => signOut()}
+              className="flex items-center gap-1 cursor-pointer hover:outline hover:outline-1 hover:outline-white px-2 py-1 rounded"
+            >
+              <User size={18} />
+              <span>Hello, {session.user?.name}</span>
+            </div>
+          ) : (
             <button
               onClick={() => signIn('google')}
-              className="hover:underline"
+              className="px-3 py-1 border border-white rounded hover:bg-white hover:text-black"
             >
               Login
             </button>
-          ) : (
-            <button
-              onClick={() => signOut()}
-              className="hover:underline"
-            >
-              Hello, {session.user?.name?.split(' ')[0]}
-            </button>
           )}
-
-          <Bell size={18} />
-        </div>
-      </div>
-
-      {/* SUB BAR */}
-      <div className="bg-[#232f3e] px-6 py-2 flex gap-8 text-sm">
-        <NavItem icon={<FileText size={16} />} text="Health Records" />
-        <NavItem icon={<MessageCircle size={16} />} text="AI Health Chat" />
-        <NavItem icon={<Bell size={16} />} text="Alerts" />
-        <NavItem text="Help" />
+        </nav>
       </div>
     </header>
-  );
+  )
 }
 
-function NavItem({ icon, text }: { icon?: React.ReactNode; text: string }) {
+function NavItem({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
-    <div className="flex items-center gap-1 cursor-pointer hover:underline">
+    <div className="flex items-center gap-1 cursor-pointer hover:outline hover:outline-1 hover:outline-white px-2 py-1 rounded">
       {icon}
-      <span>{text}</span>
+      <span>{label}</span>
     </div>
-  );
+  )
 }
